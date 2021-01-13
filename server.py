@@ -4,7 +4,6 @@ import cherrypy
 
 """
 This is a simple Battlesnake server written in Python.
-For instructions see https://github.com/BattlesnakeOfficial/starter-snake-python/README.md
 """
 
 
@@ -12,22 +11,19 @@ class Battlesnake(object):
     @cherrypy.expose
     @cherrypy.tools.json_out()
     def index(self):
-        # This function is called when you register your Battlesnake on play.battlesnake.com
-        # It controls your Battlesnake appearance and author permissions.
-        # TIP: If you open your Battlesnake URL in browser you should see this data
+        
         return {
             "apiversion": "1",
-            "author": "DONALD G",  # TODO: Your Battlesnake Username
-            "color": "#3E338F",  # TODO: Personalize
-            "head": "shac-gamer",  # TODO: Personalize
-            "tail": "shac-mouse",  # TODO: Personalize
+            "author": "DONALD G",
+            "color": "#3E338F",
+            "head": "shac-gamer",
+            "tail": "shac-mouse",
         }
 
     @cherrypy.expose
     @cherrypy.tools.json_in()
     def start(self):
-        # This function is called everytime your snake is entered into a game.
-        # cherrypy.request.json contains information about the game that's about to be played.
+        
         data = cherrypy.request.json
 
         print("START")
@@ -37,28 +33,19 @@ class Battlesnake(object):
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
     def move(self):
-        # This function is called on every turn of a game. It's how your snake decides where to move.
-        # Valid moves are "up", "down", "left", or "right".
-        # TODO: Use the information in cherrypy.request.json to decide your next move.
+        
         data = cherrypy.request.json
         
         move = "left"
 
-        
-
-      
         if data["you"]["head"]["x"] == 0:
-          move = "up"
-            
-        if data["you"]["head"]["y"] == 10 :
-          move = "right"
-
+            move = "up"
+        if data["you"]["head"]["y"] == 10:
+            move = "right"
         if data["you"]["head"]["x"] == 10:
-          move = "down"
-
+            move = "down"
         if data["you"]["head"]["y"] == 0:
-          move = "left"
-
+            move = "left"
 
         print(f"MOVE: {move}")
         return {"move": move}
@@ -66,8 +53,7 @@ class Battlesnake(object):
     @cherrypy.expose
     @cherrypy.tools.json_in()
     def end(self):
-        # This function is called when a game your snake was in ends.
-        # It's purely for informational purposes, you don't have to make any decisions here.
+        
         data = cherrypy.request.json
 
         print("END")
